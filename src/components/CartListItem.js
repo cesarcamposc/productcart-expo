@@ -3,15 +3,27 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import React from 'react'
 import cart from '../data/cart'
+import { cartSlice } from '../store/cartSlice'
+import { useDispatch } from 'react-redux'
 
 const CartListItem = ({cartItem}) => {
 
+  const dispatch = useDispatch();
+
     const increaseQuantity = ()=>{
-        
-    }
+      dispatch(cartSlice.actions.changeQuantity({
+        productId : cartItem.product.id,
+        amount : 1,        
+      })
+      );        
+    };
 
     const decreaseQuantity = ()=>{
-        
+      dispatch(cartSlice.actions.changeQuantity({
+        productId : cartItem.product.id,
+        amount : -1,        
+      })
+      );        
     }
 
     
@@ -39,7 +51,7 @@ const CartListItem = ({cartItem}) => {
             size={25}
             color="purple"
           />
-          <Text style={styles.itemTotal}>$ {cartItem.product.price * cartItem.quantity}</Text>
+          <Text style={styles.itemTotal}>  $ {cartItem.product.price * cartItem.quantity}</Text>
         </View>
       </View>
     </View>

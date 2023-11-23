@@ -7,9 +7,14 @@ import ProductsScreen from './screens/ProductsScreen'
 import React from 'react'
 import ShoppingCart from './screens/ShoppingCart'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { selectNumberItems } from './store/cartSlice'
+import { useSelector } from 'react-redux'
 
 const  Stack = createNativeStackNavigator();
 const navigation = () => {
+
+  const numberOfItems = useSelector(selectNumberItems);
+  
   return (
     <NavigationContainer>
        <Stack.Navigator>
@@ -20,7 +25,7 @@ const navigation = () => {
             headerRight: ()=>(
                 <Pressable onPress={()=>navigation.navigate('Cart')} style= {{flexDirection: 'row'}}>
                     <Ionicons name="cart-outline"size={25} color='gray' />
-                    <Text style={{marginLeft: 5, fontWeight:'bold', fontSize: 20}}>2</Text>
+                    <Text style={{marginLeft: 5, fontWeight:'bold', fontSize: 20}}>{numberOfItems}</Text>
                 </Pressable>
             )
 
